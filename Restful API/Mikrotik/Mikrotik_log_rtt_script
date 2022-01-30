@@ -1,0 +1,9 @@
+:global result [/tool fetch http-method=post http-header-field="Content-Type: application/json" http-data="{\"count\":\"15\", \"address\":\"8.8.4.4\", \"interval\":\"90ms\"}" url="https://192.168.0.80/rest/ping" check-certificate=no user=restu as-value output=user];
+# :put $result
+# :global var [:pick $result 29 30 ]
+:global var [:tostr $result]
+# :put [:typeof  $var]
+# :put [:len  $var]
+:global var2 [:pick $var [:find $var "seq\":\"13"] [:find $var "download"]]
+:global logmessage [:pick $var2 [:find $var2 "avg-rtt" -1] [:find $var2 "}];"]]
+:log info message="$logmessage"
